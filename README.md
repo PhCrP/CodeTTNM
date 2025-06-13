@@ -21,7 +21,6 @@ A full-fledged **eCommerce solution** built on **Laravel 10**, featuring a moder
 - 🛍️ **Product management**
 - 🔔 **Real-time notifications**
 - 📰 **Category management**
-- 📸 **Media & banner manager**
 
 ### 🔹 **User Dashboard**
 - 🔧 **Profile customization**
