@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-app-up
+    volumes:
+      - ./:/var/www/html:delegated
+    networks:
+      - web
+    depends_on:
+      - php
+      - nginx
+      - mysql
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-php-up
+    volumes:
+      - ./:/var/www/html:delegated
+    networks:
+      - web
+
+  nginx:
+    image: nginx:latest
+    container_name: laravel-nginx-up
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html:delegated
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - web
+    depends_on:
+      - php
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-laravel-up
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456789
+      MYSQL_DATABASE: eshop
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge
+
+volumes:
+  mysql-data:
